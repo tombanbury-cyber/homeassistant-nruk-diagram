@@ -1,0 +1,6 @@
+{
+  "name": "Network Rail Status Card",
+  "filename": "network-rail-status-card.js",
+  "render_readme": true,
+  "content_in_root": false
+}
