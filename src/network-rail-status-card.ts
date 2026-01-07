@@ -305,7 +305,7 @@ declare global {
 });
 
 console.info(
-  '%c NETWORK-RAIL-STATUS-CARD %c 1.0.0 ',
+  '%c NETWORK-RAIL-STATUS-CARD %c 2.0.0 ',
   'color: white; background: #2196F3; font-weight: 700;',
   'color: #2196F3; background: white; font-weight: 700;'
 );
