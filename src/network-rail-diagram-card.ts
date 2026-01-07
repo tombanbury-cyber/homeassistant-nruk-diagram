@@ -178,7 +178,7 @@ export class NetworkRailDiagramCard extends LitElement {
 
   // Render berths between stations
   private renderBetweenBerths(berths: BerthInfo[], trains?: TrainInfo[]): TemplateResult {
-    if (!this.config || !berths) return html``;
+    if (!this.config || !berths?.length) return html``;
 
     return html`
       <div class="between-berths ${this.config.compact ? 'compact' : ''}">

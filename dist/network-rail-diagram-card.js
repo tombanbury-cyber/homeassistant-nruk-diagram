@@ -65,7 +65,7 @@ const at={attribute:!0,type:String,converter:_,reflect:!1,hasChanged:v},ct=(t=at
           ${t.berths.map(t=>this.renderBerth(t,e))}
         </div>
       </div>
-    `:I``}renderBetweenBerths(t,e){return this.config&&t?I`
+    `:I``}renderBetweenBerths(t,e){return this.config&&t?.length?I`
       <div class="between-berths ${this.config.compact?"compact":""}">
         <div class="berths-container ${"horizontal"===this.config.layout?"horizontal":"vertical"}">
           ${t.map(t=>this.renderBerth(t,e))}
