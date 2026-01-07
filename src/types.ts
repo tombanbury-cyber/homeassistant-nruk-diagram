@@ -40,6 +40,8 @@ export interface NetworkRailDiagramCardConfig {
   show_empty_berths?: boolean;
   show_alerts?: boolean;
   show_train_details?: boolean;
+  show_up_lines?: boolean;
+  show_down_lines?: boolean;
   platform_colors?: Record<string, string>;
   alert_color?: string;
 }
@@ -81,6 +83,8 @@ export interface NetworkDiagramState {
   center_berths: BerthInfo[];
   up_stations: StationInfo[];
   down_stations: StationInfo[];
+  up_between_berths?: BerthInfo[];
+  down_between_berths?: BerthInfo[];
   smart_data_available: boolean;
   diagram_range: number;
   trains_in_diagram?: TrainInfo[];

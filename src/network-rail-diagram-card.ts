@@ -38,6 +38,8 @@ export class NetworkRailDiagramCard extends LitElement {
       show_empty_berths: true,
       show_alerts: true,
       show_train_details: true,
+      show_up_lines: true,
+      show_down_lines: true,
       alert_color: '#FF5252',
       ...config,
       platform_colors: {
@@ -169,6 +171,19 @@ export class NetworkRailDiagramCard extends LitElement {
         </div>
         <div class="berths-container ${this.config.layout === 'horizontal' ? 'horizontal' : 'vertical'}">
           ${station.berths.map(berth => this.renderBerth(berth, trains))}
+        </div>
+      </div>
+    `;
+  }
+
+  // Render berths between stations
+  private renderBetweenBerths(berths: BerthInfo[], trains?: TrainInfo[]): TemplateResult {
+    if (!this.config || !berths?.length) return html``;
+
+    return html`
+      <div class="between-berths ${this.config.compact ? 'compact' : ''}">
+        <div class="berths-container ${this.config.layout === 'horizontal' ? 'horizontal' : 'vertical'}">
+          ${berths.map(berth => this.renderBerth(berth, trains))}
         </div>
       </div>
     `;
@@ -320,8 +335,8 @@ export class NetworkRailDiagramCard extends LitElement {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-width: 80px;
-      min-height: 60px;
+      min-width: 60px;
+      min-height: 50px;
       padding: 8px;
       border: 2px solid var(--divider-color);
       border-radius: 6px;
@@ -331,8 +346,8 @@ export class NetworkRailDiagramCard extends LitElement {
     }
 
     .berth.compact {
-      min-width: 60px;
-      min-height: 45px;
+      min-width: 50px;
+      min-height: 40px;
       padding: 6px;
     }
 
@@ -372,14 +387,14 @@ export class NetworkRailDiagramCard extends LitElement {
     }
 
     .berth-headcode {
-      font-size: 1em;
+      font-size: 1.2em;
       font-weight: 700;
       color: var(--primary-text-color);
       text-align: center;
     }
 
     .berth.compact .berth-headcode {
-      font-size: 0.85em;
+      font-size: 1em;
     }
 
     .platform-badge {
@@ -432,6 +447,17 @@ export class NetworkRailDiagramCard extends LitElement {
     .diagram-container.horizontal .down-stations {
       flex-direction: row;
     }
+
+    .between-berths {
+      padding: 8px;
+      border: 1px dashed var(--divider-color);
+      border-radius: 6px;
+      background-color: rgba(128, 128, 128, 0.05);
+    }
+
+    .between-berths.compact {
+      padding: 6px;
+    }
   `;
 
   // Render method
@@ -479,17 +505,23 @@ export class NetworkRailDiagramCard extends LitElement {
         </div>
 
         <div class="diagram-container ${this.config.layout === 'horizontal' ? 'horizontal' : ''}">
-          ${attrs.up_stations && attrs.up_stations.length > 0 ? html`
+          ${this.config.show_up_lines && attrs.up_stations && attrs.up_stations.length > 0 ? html`
             <div class="up-stations">
               ${attrs.up_stations.map(station => this.renderStation(station, attrs.trains_in_diagram))}
             </div>
+            ${attrs.up_between_berths?.length ? html`
+              ${this.renderBetweenBerths(attrs.up_between_berths, attrs.trains_in_diagram)}
+            ` : ''}
             <div class="direction-arrow">↓</div>
           ` : ''}
 
           ${this.renderCenterStation(attrs)}
 
-          ${attrs.down_stations && attrs.down_stations.length > 0 ? html`
+          ${this.config.show_down_lines && attrs.down_stations && attrs.down_stations.length > 0 ? html`
             <div class="direction-arrow">↓</div>
+            ${attrs.down_between_berths?.length ? html`
+              ${this.renderBetweenBerths(attrs.down_between_berths, attrs.trains_in_diagram)}
+            ` : ''}
             <div class="down-stations">
               ${attrs.down_stations.map(station => this.renderStation(station, attrs.trains_in_diagram))}
             </div>
