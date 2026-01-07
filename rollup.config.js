@@ -4,20 +4,33 @@ import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
 import json from '@rollup/plugin-json';
 
-export default {
-  input: 'src/network-rail-status-card.ts',
-  output: {
-    file: 'dist/network-rail-status-card.js',
-    format: 'es',
-    sourcemap: true
+const commonPlugins = [
+  resolve(),
+  commonjs(),
+  json(),
+  typescript({
+    tsconfig: './tsconfig.json'
+  }),
+  terser()
+];
+
+export default [
+  {
+    input: 'src/network-rail-status-card.ts',
+    output: {
+      file: 'dist/network-rail-status-card.js',
+      format: 'es',
+      sourcemap: true
+    },
+    plugins: commonPlugins
   },
-  plugins: [
-    resolve(),
-    commonjs(),
-    json(),
-    typescript({
-      tsconfig: './tsconfig.json'
-    }),
-    terser()
-  ]
-};
+  {
+    input: 'src/network-rail-diagram-card.ts',
+    output: {
+      file: 'dist/network-rail-diagram-card.js',
+      format: 'es',
+      sourcemap: true
+    },
+    plugins: commonPlugins
+  }
+];
