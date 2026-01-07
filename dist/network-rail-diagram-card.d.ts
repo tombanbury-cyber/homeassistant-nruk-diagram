@@ -13,6 +13,7 @@ export declare class NetworkRailDiagramCard extends LitElement {
     private renderBerth;
     private getBerthTooltip;
     private renderStation;
+    private renderBetweenBerths;
     private renderCenterStation;
     static styles: import("lit").CSSResult;
     protected render(): TemplateResult<1>;
