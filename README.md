@@ -28,13 +28,14 @@ Visualizes railway berth occupancy with real-time train positions in a graphical
 
 ### Diagram Card Features
 - 🗺️ Visual network layout with center station and surrounding stations
-- 🟢 Real-time berth occupancy display
+- 🟢 Real-time berth occupancy display (includes berths between stations)
 - 🎨 Color-coded platforms
 - 🚨 Alert highlighting for freight, RHTT, steam, and other special services
 - 🔢 Train count badges (total trains and alert trains)
 - 💡 Hover tooltips with detailed train information
 - 📐 Flexible layout options (vertical/horizontal)
 - 📱 Compact mode for space-constrained displays
+- 🔍 Independent UP/DOWN line filtering for flexible dashboard layouts
 - 🌗 Automatic theme support (follows Home Assistant theme)
 
 ## Prerequisites
@@ -138,6 +139,8 @@ compact: false
 show_empty_berths: true
 show_alerts: true
 show_train_details: true
+show_up_lines: true
+show_down_lines: true
 platform_colors:
   "1": "#4CAF50"
   "2": "#2196F3"
@@ -160,6 +163,8 @@ alert_color: "#FF5252"
 | `show_empty_berths` | boolean | `true` | Show or hide empty berths |
 | `show_alerts` | boolean | `true` | Highlight alert trains (freight, RHTT, steam, etc.) |
 | `show_train_details` | boolean | `true` | Show detailed tooltips on hover |
+| `show_up_lines` | boolean | `true` | Show or hide UP line stations and berths |
+| `show_down_lines` | boolean | `true` | Show or hide DOWN line stations and berths |
 | `platform_colors` | object | See defaults | Custom colors for each platform number (hex colors) |
 | `alert_color` | string | `#FF5252` | Color for alert train borders (hex color) |
 
@@ -279,6 +284,45 @@ platform_colors:
   "14": "#06A77D" # Green for Platform 14
 ```
 
+#### Show Only UP or DOWN Lines
+
+Filter to show only specific line directions:
+
+```yaml
+# Show only UP lines (towards London)
+type: custom:network-rail-diagram-card
+entity: sensor.network_rail_integration_diagram_32000
+name: "Manchester Piccadilly - UP Lines"
+show_down_lines: false
+```
+
+```yaml
+# Show only DOWN lines (away from London)
+type: custom:network-rail-diagram-card
+entity: sensor.network_rail_integration_diagram_32000
+name: "Manchester Piccadilly - DOWN Lines"
+show_up_lines: false
+```
+
+#### Separate UP and DOWN Lines Dashboard
+
+Create independent views for UP and DOWN lines:
+
+```yaml
+type: horizontal-stack
+cards:
+  - type: custom:network-rail-diagram-card
+    entity: sensor.network_rail_integration_diagram_32000
+    name: "UP Lines"
+    show_down_lines: false
+    compact: true
+  - type: custom:network-rail-diagram-card
+    entity: sensor.network_rail_integration_diagram_32000
+    name: "DOWN Lines"
+    show_up_lines: false
+    compact: true
+```
+
 #### Signal Box Style Dashboard
 
 Create a comprehensive control-room style view:
@@ -331,6 +375,12 @@ cards:
 - **Center Station**: Your configured monitoring point with highlighted border
 - **Up Stations**: Stations in the "up" direction (typically towards London)
 - **Down Stations**: Stations in the "down" direction (typically away from London)
+- **Between Berths**: Berths located between stations, shown in a dashed border section
+
+#### Filtering Options
+- **show_up_lines**: Toggle visibility of UP line stations and berths
+- **show_down_lines**: Toggle visibility of DOWN line stations and berths
+- Both filters can be used independently to create custom dashboard layouts
 
 #### Train Information
 Hover over an occupied berth to see:
