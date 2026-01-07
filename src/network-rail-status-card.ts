@@ -1,35 +1,6 @@
 import { LitElement, html, css, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-
-// Define the card configuration interface
-interface NetworkRailStatusCardConfig {
-  type: string;
-  entity?: string;
-  name?: string;
-  show_platform?: boolean;
-  show_direction?: boolean;
-  show_operator?: boolean;
-  show_status?: boolean;
-  show_time?: boolean;
-  show_variation?: boolean;
-  icon?: string;
-  theme?: 'default' | 'compact';
-}
-
-// Define the Home Assistant types
-interface HomeAssistant {
-  states: {
-    [entity_id: string]: {
-      state: string;
-      attributes: {
-        [key: string]: any;
-      };
-      last_changed: string;
-      last_updated: string;
-    };
-  };
-  callService: (domain: string, service: string, serviceData?: any) => void;
-}
+import { HomeAssistant, NetworkRailStatusCardConfig } from './types.js';
 
 // Custom card class
 @customElement('network-rail-status-card')

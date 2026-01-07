@@ -1,7 +1,7 @@
 {
   "name": "network-rail-status-card",
-  "version": "1.0.0",
-  "description": "A Lovelace card for displaying Network Rail train movements in Home Assistant",
+  "version": "2.0.0",
+  "description": "Lovelace cards for displaying Network Rail train movements and berth diagrams in Home Assistant",
   "type": "module",
   "main": "dist/network-rail-status-card.js",
   "scripts": {
@@ -13,7 +13,10 @@
     "lovelace",
     "custom-card",
     "network-rail",
-    "trains"
+    "trains",
+    "diagram",
+    "berth",
+    "signalling"
   ],
   "author": "tombanbury-cyber",
   "license": "MIT",
