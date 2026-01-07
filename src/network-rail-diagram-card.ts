@@ -178,7 +178,7 @@ export class NetworkRailDiagramCard extends LitElement {
 
   // Render berths between stations
   private renderBetweenBerths(berths: BerthInfo[], trains?: TrainInfo[]): TemplateResult {
-    if (!this.config || !berths || berths.length === 0) return html``;
+    if (!this.config || !berths) return html``;
 
     return html`
       <div class="between-berths ${this.config.compact ? 'compact' : ''}">
@@ -509,7 +509,7 @@ export class NetworkRailDiagramCard extends LitElement {
             <div class="up-stations">
               ${attrs.up_stations.map(station => this.renderStation(station, attrs.trains_in_diagram))}
             </div>
-            ${attrs.up_between_berths && attrs.up_between_berths.length > 0 ? html`
+            ${attrs.up_between_berths?.length ? html`
               ${this.renderBetweenBerths(attrs.up_between_berths, attrs.trains_in_diagram)}
             ` : ''}
             <div class="direction-arrow">↓</div>
@@ -519,7 +519,7 @@ export class NetworkRailDiagramCard extends LitElement {
 
           ${this.config.show_down_lines && attrs.down_stations && attrs.down_stations.length > 0 ? html`
             <div class="direction-arrow">↓</div>
-            ${attrs.down_between_berths && attrs.down_between_berths.length > 0 ? html`
+            ${attrs.down_between_berths?.length ? html`
               ${this.renderBetweenBerths(attrs.down_between_berths, attrs.trains_in_diagram)}
             ` : ''}
             <div class="down-stations">
