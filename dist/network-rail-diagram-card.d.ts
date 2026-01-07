@@ -7,7 +7,7 @@ export declare class NetworkRailDiagramCard extends LitElement {
     setConfig(config: NetworkRailDiagramCardConfig): void;
     protected shouldUpdate(changedProps: PropertyValues): boolean;
     getCardSize(): number;
-    private getTrainInfo;
+    private getTrainInfoByHeadcode;
     private formatTimeInDiagram;
     private getPlatformColor;
     private renderBerth;

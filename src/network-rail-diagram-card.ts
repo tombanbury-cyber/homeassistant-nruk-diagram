@@ -61,7 +61,7 @@ export class NetworkRailDiagramCard extends LitElement {
   }
 
   // Helper function to get train info by headcode
-  private getTrainInfo(headcode: string, trains?: TrainInfo[]): TrainInfo | undefined {
+  private getTrainInfoByHeadcode(headcode: string, trains?: TrainInfo[]): TrainInfo | undefined {
     if (!trains || !headcode) return undefined;
     return trains.find(t => t.headcode === headcode);
   }
@@ -86,7 +86,7 @@ export class NetworkRailDiagramCard extends LitElement {
   private renderBerth(berth: BerthInfo, trains?: TrainInfo[]): TemplateResult {
     if (!this.config) return html``;
     
-    const trainInfo = berth.headcode ? this.getTrainInfo(berth.headcode, trains) : undefined;
+    const trainInfo = berth.headcode ? this.getTrainInfoByHeadcode(berth.headcode, trains) : undefined;
     const isAlert = trainInfo?.triggers_alert || false;
     const platformColor = this.getPlatformColor(berth.platform);
     const alertColor = this.config.alert_color || '#FF5252';
